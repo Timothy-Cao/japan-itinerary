@@ -849,7 +849,7 @@
       <button class="gmap-tab" onclick="switchMap('hiroshima')">Hiroshima</button>
     </div>
     <iframe id="gmapFrame" class="gmap-frame" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
-      src="https://www.google.com/maps/embed?pb=!1m76!1m12!1m3!1d3541064.7!2d133.5!3d35.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m61!3e0!4m5!1s0x60188b857628235d%3A0xcdd8aef709a2b520!2sTokyo%2C%20Japan!3m2!1d35.6762!2d139.6503!4m5!1s0x6019a2d8735eaee7%3A0xdeda85de998bab05!2sNikko%2C%20Tochigi%2C%20Japan!3m2!1d36.7198!2d139.6982!4m5!1s0x6018e30e36e6e1e3%3A0x79a0f10735fb8ec!2sKawagoe%2C%20Saitama%2C%20Japan!3m2!1d35.9251!2d139.4857!4m5!1s0x60185c3df3528bad%3A0x52cf903aa3100e0!2sYokohama%2C%20Japan!3m2!1d35.4437!2d139.638!4m5!1s0x60194c3c90000001%3A0x9b1e3bff39e7aaab!2sHakone%2C%20Kanagawa%2C%20Japan!3m2!1d35.2324!2d139.1069!4m5!1s0x600108ae918b02ef%3A0xb61a6e4ba2ab2b89!2sKyoto%2C%20Japan!3m2!1d35.0116!2d135.7681!4m5!1s0x6001a8dbb3c2e98b%3A0x6536e0430a4e71ab!2sUji%2C%20Kyoto%2C%20Japan!3m2!1d34.8843!2d135.8003!4m5!1s0x6000e86867286859%3A0xdd8e38930a42a9a5!2sOsaka%2C%20Japan!3m2!1d34.6937!2d135.5023!4m5!1s0x60008f16de00d5bf%3A0x6b18b1c23b9f26e2!2sKobe%2C%20Hyogo%2C%20Japan!3m2!1d34.6901!2d135.1956!4m5!1s0x355aa21ab7d01515%3A0xb889a4f08a1c1b0!2sHiroshima%2C%20Japan!3m2!1d34.3853!2d132.4553!4m5!1s0x355abd384715e235%3A0xdc1145b6f7afb60!2sMiyajima%2C%20Hatsukaichi%2C%20Hiroshima%2C%20Japan!3m2!1d34.2961!2d132.3198!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"></iframe>
+      src="https://maps.google.com/maps?q=Tokyo+Hakone+Kyoto+Osaka+Hiroshima+Japan&t=m&z=6&output=embed"></iframe>
   </div>
 </div>
 
@@ -1515,12 +1515,12 @@
 
 // ── Google Maps Switcher ──
 var mapUrls = {
-  full: 'https://www.google.com/maps/embed?pb=!1m76!1m12!1m3!1d3541064.7!2d133.5!3d35.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m61!3e0!4m5!1s0x60188b857628235d%3A0xcdd8aef709a2b520!2sTokyo%2C%20Japan!3m2!1d35.6762!2d139.6503!4m5!1s0x6019a2d8735eaee7%3A0xdeda85de998bab05!2sNikko%2C%20Tochigi%2C%20Japan!3m2!1d36.7198!2d139.6982!4m5!1s0x6018e30e36e6e1e3%3A0x79a0f10735fb8ec!2sKawagoe%2C%20Saitama%2C%20Japan!3m2!1d35.9251!2d139.4857!4m5!1s0x60185c3df3528bad%3A0x52cf903aa3100e0!2sYokohama%2C%20Japan!3m2!1d35.4437!2d139.638!4m5!1s0x60194c3c90000001%3A0x9b1e3bff39e7aaab!2sHakone%2C%20Kanagawa%2C%20Japan!3m2!1d35.2324!2d139.1069!4m5!1s0x600108ae918b02ef%3A0xb61a6e4ba2ab2b89!2sKyoto%2C%20Japan!3m2!1d35.0116!2d135.7681!4m5!1s0x6001a8dbb3c2e98b%3A0x6536e0430a4e71ab!2sUji%2C%20Kyoto%2C%20Japan!3m2!1d34.8843!2d135.8003!4m5!1s0x6000e86867286859%3A0xdd8e38930a42a9a5!2sOsaka%2C%20Japan!3m2!1d34.6937!2d135.5023!4m5!1s0x60008f16de00d5bf%3A0x6b18b1c23b9f26e2!2sKobe%2C%20Hyogo%2C%20Japan!3m2!1d34.6901!2d135.1956!4m5!1s0x355aa21ab7d01515%3A0xb889a4f08a1c1b0!2sHiroshima%2C%20Japan!3m2!1d34.3853!2d132.4553!4m5!1s0x355abd384715e235%3A0xdc1145b6f7afb60!2sMiyajima%2C%20Hatsukaichi%2C%20Hiroshima%2C%20Japan!3m2!1d34.2961!2d132.3198!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus',
-  tokyo: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d103938.3!2d139.6!3d35.68!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b857628235d%3A0xcdd8aef709a2b520!2sTokyo%2C%20Japan!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus',
-  hakone: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26048.5!2d139.05!3d35.23!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60194c3c90000001%3A0x9b1e3bff39e7aaab!2sHakone%2C%20Kanagawa%2C%20Japan!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus',
-  kyoto: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d104518.8!2d135.7!3d35.01!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600108ae918b02ef%3A0xb61a6e4ba2ab2b89!2sKyoto%2C%20Japan!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus',
-  osaka: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105019.8!2d135.5!3d34.69!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000e86867286859%3A0xdd8e38930a42a9a5!2sOsaka%2C%20Japan!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus',
-  hiroshima: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105019.8!2d132.45!3d34.39!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x355aa21ab7d01515%3A0xb889a4f08a1c1b0!2sHiroshima%2C%20Japan!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus'
+  full: 'https://www.google.com/maps/d/embed?mid=1&ll=35.0,136.0&z=6&q=Tokyo+Hakone+Kyoto+Osaka+Hiroshima',
+  tokyo: 'https://maps.google.com/maps?q=Shimokitazawa,+Shibuya,+Nakameguro,+Tokyo,+Japan&t=m&z=11&output=embed',
+  hakone: 'https://maps.google.com/maps?q=Hakone,+Kanagawa,+Japan&t=m&z=12&output=embed',
+  kyoto: 'https://maps.google.com/maps?q=Fushimi+Inari,+Kiyomizu-dera,+Kyoto,+Japan&t=m&z=12&output=embed',
+  osaka: 'https://maps.google.com/maps?q=Dotonbori,+Osaka,+Japan&t=m&z=12&output=embed',
+  hiroshima: 'https://maps.google.com/maps?q=Hiroshima+Peace+Memorial,+Miyajima,+Japan&t=m&z=10&output=embed'
 };
 function switchMap(region) {
   document.getElementById('gmapFrame').src = mapUrls[region];
