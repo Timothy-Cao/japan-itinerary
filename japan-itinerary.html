@@ -93,6 +93,13 @@
     color: #fff;
   }
   .hero-stat span { font-size: .75rem; text-transform: uppercase; letter-spacing: .12em; }
+  .countdown-label {
+    margin-top: 1rem;
+    font-size: .8rem;
+    color: rgba(255,255,255,.4);
+    letter-spacing: .1em;
+    font-weight: 300;
+  }
 
   .scroll-hint {
     position: absolute;
@@ -452,10 +459,12 @@
     <h1>21 Days in <span>Japan</span></h1>
     <p>Tokyo &middot; Hakone &middot; Kyoto &middot; Osaka &middot; Hiroshima</p>
     <div class="hero-stats">
-      <div class="hero-stat"><strong>21</strong><span>Days</span></div>
-      <div class="hero-stat"><strong>5</strong><span>Regions</span></div>
-      <div class="hero-stat"><strong>15</strong><span>Cities</span></div>
+      <div class="hero-stat"><strong id="cd-days">--</strong><span>Days</span></div>
+      <div class="hero-stat"><strong id="cd-hours">--</strong><span>Hours</span></div>
+      <div class="hero-stat"><strong id="cd-mins">--</strong><span>Minutes</span></div>
+      <div class="hero-stat"><strong id="cd-secs">--</strong><span>Seconds</span></div>
     </div>
+    <div class="countdown-label">until November 7, 2026</div>
   </div>
   <div class="scroll-hint">Scroll to explore</div>
 </section>
@@ -1039,6 +1048,32 @@
 </footer>
 
 <script>
+// ── Countdown to Nov 7, 2026 ──
+(function() {
+  var target = new Date('2026-11-07T00:00:00').getTime();
+  function update() {
+    var now = Date.now();
+    var diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent = '0';
+      document.getElementById('cd-hours').textContent = '0';
+      document.getElementById('cd-mins').textContent = '0';
+      document.getElementById('cd-secs').textContent = '0';
+      return;
+    }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent = d;
+    document.getElementById('cd-hours').textContent = h;
+    document.getElementById('cd-mins').textContent = m;
+    document.getElementById('cd-secs').textContent = s;
+  }
+  update();
+  setInterval(update, 1000);
+})();
+
 // ── Floating Particles ──
 (function() {
   const container = document.getElementById('heroParticles');
