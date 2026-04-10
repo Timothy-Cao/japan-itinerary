@@ -254,18 +254,18 @@
   }
   .hanko {
     position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    width: 36px;
-    height: 36px;
-    border: 2px solid rgba(192,57,43,.7);
-    border-radius: 4px;
+    bottom: .4rem;
+    right: .4rem;
+    width: 26px;
+    height: 26px;
+    border: 1.5px solid rgba(192,57,43,.7);
+    border-radius: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: rgba(192,57,43,.7);
     font-family: 'Noto Sans JP', sans-serif;
-    font-size: .7rem;
+    font-size: .5rem;
     font-weight: 700;
     transform: rotate(-8deg);
     opacity: .8;
@@ -401,7 +401,7 @@
 
   /* ── Section Headers ── */
   .region-header {
-    padding: 5rem 2rem 3rem;
+    padding: 3rem 2rem 1.5rem;
     text-align: center;
   }
   .region-header h2 {
@@ -426,34 +426,99 @@
     border-radius: 2rem;
   }
 
-  /* ── Day Cards ── */
-  .days-container {
-    max-width: 900px;
+  /* ── Travel Map ── */
+  .travel-map-section {
+    max-width: 700px;
     margin: 0 auto;
-    padding: 0 1.5rem 4rem;
+    padding: 2rem 1.5rem 1rem;
+    text-align: center;
+  }
+  .travel-map-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: .3rem;
+  }
+  .travel-map-section .map-subtitle {
+    font-size: .8rem;
+    color: var(--stone);
+    margin-bottom: 1.5rem;
+  }
+  .travel-map-svg {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .map-route {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    transition: stroke-dashoffset 3s ease-out;
+  }
+  .map-route.animate { stroke-dashoffset: 0; }
+  .map-dot {
+    transition: r .3s;
+    cursor: pointer;
+  }
+  .map-dot:hover { r: 7; }
+  .map-label {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 7px;
+    fill: var(--ink);
+    font-weight: 600;
+  }
+  .map-days {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 5.5px;
+    fill: var(--stone);
+  }
+  .map-legend {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  .map-legend-item {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+    font-size: .7rem;
+    color: var(--stone);
+  }
+  .map-legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  /* ── Day Cards (Compact) ── */
+  .days-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1.5rem 2rem;
   }
 
   .day-card {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 140px 1fr;
     gap: 0;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     background: #fff;
-    border-radius: 16px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 24px rgba(0,0,0,.06), 0 1px 4px rgba(0,0,0,.04);
+    box-shadow: 0 2px 12px rgba(0,0,0,.05), 0 1px 3px rgba(0,0,0,.03);
     transition: transform .3s, box-shadow .3s;
+    min-height: 0;
   }
   .day-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0,0,0,.1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0,0,0,.08);
   }
-  .day-card:nth-child(even) { direction: rtl; }
+  .day-card:nth-child(even) { direction: ltr; }
   .day-card:nth-child(even) > * { direction: ltr; }
 
   .day-image {
     position: relative;
-    min-height: 320px;
+    min-height: 140px;
     overflow: hidden;
   }
   .day-image img {
@@ -466,51 +531,52 @@
   .day-card:hover .day-image img { transform: scale(1.05); }
   .day-number {
     position: absolute;
-    top: 1rem;
-    left: 1rem;
+    top: .5rem;
+    left: .5rem;
     background: rgba(0,0,0,.6);
     backdrop-filter: blur(8px);
     color: #fff;
-    font-size: .7rem;
+    font-size: .55rem;
     font-weight: 600;
-    letter-spacing: .15em;
+    letter-spacing: .12em;
     text-transform: uppercase;
-    padding: .35rem .9rem;
+    padding: .2rem .5rem;
     border-radius: 2rem;
   }
-  .day-card:nth-child(even) .day-number { left: auto; right: 1rem; }
+  .day-card:nth-child(even) .day-number { left: .5rem; right: auto; }
 
   .day-content {
-    padding: 2rem 2rem 1.8rem;
+    padding: 1rem 1.2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
   .day-location {
     font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    margin-bottom: .15rem;
+    margin-bottom: .1rem;
+    line-height: 1.3;
   }
   .day-area {
-    font-size: .8rem;
+    font-size: .7rem;
     color: var(--stone);
-    margin-bottom: 1.2rem;
+    margin-bottom: .5rem;
     font-weight: 400;
   }
 
-  .day-section { margin-bottom: 1rem; }
+  .day-section { margin-bottom: .4rem; }
   .day-section-title {
-    font-size: .65rem;
+    font-size: .6rem;
     font-weight: 600;
-    letter-spacing: .12em;
+    letter-spacing: .1em;
     text-transform: uppercase;
     color: var(--stone);
-    margin-bottom: .4rem;
+    margin-bottom: .2rem;
   }
   .day-section p, .day-section li {
-    font-size: .88rem;
-    line-height: 1.6;
+    font-size: .78rem;
+    line-height: 1.5;
     color: #374151;
   }
   .day-section ul {
@@ -518,42 +584,42 @@
     padding: 0;
   }
   .day-section ul li {
-    padding-left: 1.1rem;
+    padding-left: .9rem;
     position: relative;
   }
   .day-section ul li::before {
     content: '';
     position: absolute;
     left: 0;
-    top: .6em;
-    width: 5px;
-    height: 5px;
+    top: .55em;
+    width: 4px;
+    height: 4px;
     background: var(--gold);
     border-radius: 50%;
   }
 
   .day-tips {
-    margin-top: auto;
-    padding-top: .8rem;
+    margin-top: .3rem;
+    padding-top: .4rem;
     border-top: 1px solid #f0f0f0;
   }
   .day-tips p {
-    font-size: .78rem;
+    font-size: .68rem;
     color: var(--stone);
     font-style: italic;
-    line-height: 1.5;
+    line-height: 1.4;
   }
-  .tip-icon { margin-right: .3rem; }
+  .tip-icon { margin-right: .2rem; }
 
   .badge {
     display: inline-block;
-    font-size: .65rem;
+    font-size: .55rem;
     font-weight: 600;
     letter-spacing: .08em;
     text-transform: uppercase;
-    padding: .2rem .65rem;
+    padding: .15rem .5rem;
     border-radius: 1rem;
-    margin-bottom: .8rem;
+    margin-bottom: .3rem;
     width: fit-content;
   }
   .badge-daytrip { background: #fef3c7; color: #92400e; }
@@ -578,14 +644,16 @@
   /* ── Responsive ── */
   @media (max-width: 700px) {
     .day-card, .day-card:nth-child(even) {
-      grid-template-columns: 1fr;
+      grid-template-columns: 100px 1fr;
       direction: ltr;
     }
-    .day-card:nth-child(even) .day-number { left: 1rem; right: auto; }
-    .day-image { min-height: 220px; }
-    .day-content { padding: 1.5rem; }
+    .day-card:nth-child(even) .day-number { left: .5rem; right: auto; }
+    .day-image { min-height: 100px; }
+    .day-content { padding: .8rem; }
+    .day-location { font-size: .95rem; }
     .hero-stats { gap: 1.5rem; }
     .region-nav ul { gap: 1rem; padding: 0 1rem; }
+    .travel-map-section { padding: 1.5rem 1rem; }
   }
 
   /* ── Print ── */
@@ -638,6 +706,100 @@
     <li><a href="#hiroshima">Hiroshima</a></li>
   </ul>
 </nav>
+
+<!-- ═══════════ TRAVEL MAP ═══════════ -->
+<div class="travel-map-section" id="travelMap">
+  <h3>Your Route</h3>
+  <div class="map-subtitle">Tokyo &rarr; Hakone &rarr; Kyoto &rarr; Osaka &rarr; Hiroshima</div>
+  <svg class="travel-map-svg" viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
+    <!-- Simplified Japan outline (Honshu main island) -->
+    <path d="M380,60 C370,50 355,42 340,38 C320,32 300,30 285,35 C270,40 260,38 250,32
+             C240,26 225,22 210,28 C200,32 190,30 180,25 C170,20 155,22 145,30
+             C135,38 120,42 105,48 C90,54 78,62 72,75 C66,88 58,95 50,108
+             C45,118 42,130 45,142 C48,154 55,162 60,170 C65,178 62,188 58,198
+             C54,208 52,218 55,228 C58,238 65,245 72,250 C79,255 88,258 95,262
+             C102,266 108,272 115,278 C122,284 130,288 140,290
+             C150,292 158,288 165,282 C172,276 178,268 185,265
+             C192,262 200,265 208,270 C216,275 225,278 235,275
+             C245,272 250,265 258,260 C266,255 275,252 285,255
+             C295,258 305,262 315,258 C325,254 330,245 338,240
+             C346,235 355,238 362,235 C370,232 375,225 380,218"
+          fill="none" stroke="#e5e7eb" stroke-width="1.5" opacity=".6"/>
+    <!-- Hokkaido hint (small) -->
+    <path d="M355,28 C365,22 375,25 380,35 C385,45 378,50 370,48 C362,46 355,38 355,28Z"
+          fill="none" stroke="#e5e7eb" stroke-width="1" opacity=".4"/>
+    <!-- Shikoku hint -->
+    <path d="M155,275 C165,272 178,274 185,280 C192,286 188,292 178,292 C168,292 155,285 155,275Z"
+          fill="none" stroke="#e5e7eb" stroke-width="1" opacity=".4"/>
+    <!-- Kyushu hint -->
+    <path d="M68,255 C60,262 55,272 58,282 C61,292 70,298 80,296 C90,294 95,284 92,274 C89,264 78,258 68,255Z"
+          fill="none" stroke="#e5e7eb" stroke-width="1" opacity=".4"/>
+
+    <!-- Route line (animated) -->
+    <polyline class="map-route" id="mapRoute"
+              points="335,72 310,55 340,90 320,80 295,105 220,152 210,158 175,175 155,190 140,200 95,248 88,258"
+              fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"
+              stroke-dasharray="8,4" opacity=".7"/>
+
+    <!-- Tokyo cluster -->
+    <circle cx="335" cy="72" r="5" fill="var(--section-tokyo)" class="map-dot"/>
+    <text x="345" y="68" class="map-label">Tokyo</text>
+    <text x="345" y="76" class="map-days">D1-9</text>
+
+    <!-- Nikko (day trip north) -->
+    <circle cx="310" cy="55" r="3" fill="var(--section-tokyo)" opacity=".6" class="map-dot"/>
+    <text x="295" y="50" class="map-label" text-anchor="end">Nikko</text>
+
+    <!-- Kawagoe (day trip) -->
+    <circle cx="320" cy="80" r="3" fill="var(--section-tokyo)" opacity=".6" class="map-dot"/>
+
+    <!-- Yokohama (day trip south) -->
+    <circle cx="340" cy="90" r="3" fill="var(--section-tokyo)" opacity=".6" class="map-dot"/>
+    <text x="350" y="93" class="map-label">Yokohama</text>
+
+    <!-- Hakone -->
+    <circle cx="295" cy="105" r="5" fill="var(--section-hakone)" class="map-dot"/>
+    <text x="305" y="102" class="map-label">Hakone</text>
+    <text x="305" y="110" class="map-days">D10-11</text>
+
+    <!-- Kyoto -->
+    <circle cx="220" cy="152" r="5" fill="var(--section-kyoto)" class="map-dot"/>
+    <text x="230" y="148" class="map-label">Kyoto</text>
+    <text x="230" y="156" class="map-days">D12-15</text>
+
+    <!-- Uji (day trip) -->
+    <circle cx="210" cy="158" r="3" fill="var(--section-kyoto)" opacity=".6" class="map-dot"/>
+    <text x="200" y="165" class="map-label" text-anchor="end">Uji</text>
+
+    <!-- Osaka -->
+    <circle cx="175" cy="175" r="5" fill="var(--section-osaka)" class="map-dot"/>
+    <text x="160" y="172" class="map-label" text-anchor="end">Osaka</text>
+    <text x="160" y="180" class="map-days" text-anchor="end">D16-19</text>
+
+    <!-- Kobe (day trip) -->
+    <circle cx="155" cy="190" r="3" fill="var(--section-osaka)" opacity=".6" class="map-dot"/>
+    <text x="142" y="193" class="map-label" text-anchor="end">Kobe</text>
+
+    <!-- Hiroshima -->
+    <circle cx="95" cy="248" r="5" fill="var(--section-hiroshima)" class="map-dot"/>
+    <text x="105" y="244" class="map-label">Hiroshima</text>
+    <text x="105" y="252" class="map-days">D20-21</text>
+
+    <!-- Miyajima -->
+    <circle cx="88" cy="258" r="3" fill="var(--section-hiroshima)" opacity=".6" class="map-dot"/>
+    <text x="75" y="265" class="map-label" text-anchor="end">Miyajima</text>
+
+    <!-- Shinkansen icon hint -->
+    <text x="268" y="128" font-size="6" fill="var(--stone)" opacity=".5" font-family="'Noto Sans JP',sans-serif">&#x1F685; shinkansen</text>
+  </svg>
+  <div class="map-legend">
+    <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--section-tokyo)"></div>Tokyo</div>
+    <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--section-hakone)"></div>Hakone</div>
+    <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--section-kyoto)"></div>Kyoto</div>
+    <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--section-osaka)"></div>Osaka</div>
+    <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--section-hiroshima)"></div>Hiroshima</div>
+  </div>
+</div>
 
 <!-- ═══════════ TOKYO ═══════════ -->
 <div id="tokyo">
@@ -1320,6 +1482,17 @@ window.addEventListener('scroll', function() {
   document.querySelectorAll('.day-card, .region-header').forEach(function(el) {
     observer.observe(el);
   });
+
+  // Map route animation
+  var mapObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        document.getElementById('mapRoute').classList.add('animate');
+      }
+    });
+  }, { threshold: 0.3 });
+  var mapEl = document.getElementById('travelMap');
+  if (mapEl) mapObserver.observe(mapEl);
 })();
 
 // ── Active Nav Highlight ──
