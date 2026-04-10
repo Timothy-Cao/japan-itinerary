@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Japan 21-Day Itinerary</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
+
+  :root {
+    --red: #c0392b;
+    --red-light: #e8d5d0;
+    --ink: #1a1a2e;
+    --paper: #faf9f6;
+    --stone: #6b7280;
+    --gold: #d4a853;
+    --section-tokyo: #2d3436;
+    --section-hakone: #0a6e5c;
+    --section-kyoto: #8e3b46;
+    --section-osaka: #c0392b;
+    --section-hiroshima: #2c3e80;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(192,57,43,.15) 0%, transparent 60%),
+                radial-gradient(circle at 70% 30%, rgba(212,168,83,.1) 0%, transparent 50%);
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-jp {
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 700;
+    color: rgba(255,255,255,.06);
+    letter-spacing: .3em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: .04em;
+    margin-bottom: .5rem;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,.6);
+    font-weight: 300;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    margin-top: 2.5rem;
+  }
+  .hero-stat { text-align: center; color: rgba(255,255,255,.7); }
+  .hero-stat strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: #fff;
+  }
+  .hero-stat span { font-size: .75rem; text-transform: uppercase; letter-spacing: .12em; }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,.3);
+    font-size: .75rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:.7} }
+
+  /* ── Scroll Progress Bar ── */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--red));
+    z-index: 200;
+    width: 0%;
+    transition: width .1s linear;
+  }
+
+  /* ── Floating Particles (Hero) ── */
+  .hero-particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,.06);
+    animation: float linear infinite;
+  }
+  @keyframes float {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ── Scroll Reveal Animations ── */
+  .day-card {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity .7s cubic-bezier(.25,.46,.45,.94), transform .7s cubic-bezier(.25,.46,.45,.94);
+  }
+  .day-card.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .day-card:nth-child(even) {
+    transform: translateY(40px);
+  }
+  .day-card:nth-child(even).revealed {
+    transform: translateY(0);
+  }
+
+  .region-header {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .region-header.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Parallax image effect ── */
+  .day-image img {
+    transition: transform .5s ease-out;
+  }
+
+  /* ── Active nav link ── */
+  .region-nav a.active {
+    color: var(--ink);
+    border-color: var(--red);
+  }
+
+  /* ── Smooth scroll ── */
+  html { scroll-behavior: smooth; }
+
+  /* ── Hero text entrance ── */
+  .hero-content h1 {
+    animation: heroFadeUp .8s ease-out both;
+  }
+  .hero-content p {
+    animation: heroFadeUp .8s ease-out .2s both;
+  }
+  .hero-stats {
+    animation: heroFadeUp .8s ease-out .4s both;
+  }
+  @keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Scroll down bounce ── */
+  .scroll-hint {
+    animation: bounce 2s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); opacity: .3; }
+    50% { transform: translateX(-50%) translateY(-8px); opacity: .7; }
+  }
+
+  /* ── Card stagger delay ── */
+  .day-card:nth-child(1) { transition-delay: 0s; }
+  .day-card:nth-child(2) { transition-delay: .1s; }
+  .day-card:nth-child(3) { transition-delay: .15s; }
+
+  /* ── Nav ── */
+  .region-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,249,246,.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,.06);
+    padding: .8rem 0;
+  }
+  .region-nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+    max-width: 900px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+  .region-nav a {
+    text-decoration: none;
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--stone);
+    padding: .3rem 0;
+    border-bottom: 2px solid transparent;
+    transition: all .2s;
+  }
+  .region-nav a:hover { color: var(--ink); border-color: var(--red); }
+
+  /* ── Section Headers ── */
+  .region-header {
+    padding: 5rem 2rem 3rem;
+    text-align: center;
+  }
+  .region-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: .3rem;
+  }
+  .region-header .region-jp {
+    font-size: 1.2rem;
+    color: var(--stone);
+    font-weight: 300;
+  }
+  .region-header .region-dates {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: .75rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: #fff;
+    padding: .4rem 1.5rem;
+    border-radius: 2rem;
+  }
+
+  /* ── Day Cards ── */
+  .days-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+  }
+
+  .day-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-bottom: 3rem;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,.06), 0 1px 4px rgba(0,0,0,.04);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .day-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,.1);
+  }
+  .day-card:nth-child(even) { direction: rtl; }
+  .day-card:nth-child(even) > * { direction: ltr; }
+
+  .day-image {
+    position: relative;
+    min-height: 320px;
+    overflow: hidden;
+  }
+  .day-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .5s;
+  }
+  .day-card:hover .day-image img { transform: scale(1.05); }
+  .day-number {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(0,0,0,.6);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    padding: .35rem .9rem;
+    border-radius: 2rem;
+  }
+  .day-card:nth-child(even) .day-number { left: auto; right: 1rem; }
+
+  .day-content {
+    padding: 2rem 2rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .day-location {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: .15rem;
+  }
+  .day-area {
+    font-size: .8rem;
+    color: var(--stone);
+    margin-bottom: 1.2rem;
+    font-weight: 400;
+  }
+
+  .day-section { margin-bottom: 1rem; }
+  .day-section-title {
+    font-size: .65rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: .4rem;
+  }
+  .day-section p, .day-section li {
+    font-size: .88rem;
+    line-height: 1.6;
+    color: #374151;
+  }
+  .day-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  .day-section ul li {
+    padding-left: 1.1rem;
+    position: relative;
+  }
+  .day-section ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: .6em;
+    width: 5px;
+    height: 5px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+
+  .day-tips {
+    margin-top: auto;
+    padding-top: .8rem;
+    border-top: 1px solid #f0f0f0;
+  }
+  .day-tips p {
+    font-size: .78rem;
+    color: var(--stone);
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .tip-icon { margin-right: .3rem; }
+
+  .badge {
+    display: inline-block;
+    font-size: .65rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: .2rem .65rem;
+    border-radius: 1rem;
+    margin-bottom: .8rem;
+    width: fit-content;
+  }
+  .badge-daytrip { background: #fef3c7; color: #92400e; }
+  .badge-nightlife { background: #ede9fe; color: #5b21b6; }
+  .badge-nature { background: #d1fae5; color: #065f46; }
+  .badge-culture { background: #fee2e2; color: #991b1b; }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--ink);
+    color: rgba(255,255,255,.4);
+    font-size: .8rem;
+  }
+  footer .footer-jp {
+    font-size: 1.5rem;
+    color: rgba(255,255,255,.1);
+    margin-bottom: .5rem;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 700px) {
+    .day-card, .day-card:nth-child(even) {
+      grid-template-columns: 1fr;
+      direction: ltr;
+    }
+    .day-card:nth-child(even) .day-number { left: 1rem; right: auto; }
+    .day-image { min-height: 220px; }
+    .day-content { padding: 1.5rem; }
+    .hero-stats { gap: 1.5rem; }
+    .region-nav ul { gap: 1rem; padding: 0 1rem; }
+  }
+
+  /* ── Print ── */
+  @media print {
+    .region-nav, .scroll-hint { display: none; }
+    .hero { height: auto; min-height: auto; padding: 3rem 2rem; page-break-after: always; }
+    .day-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+    .day-card:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Scroll Progress Bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-particles" id="heroParticles"></div>
+  <span class="hero-jp">日本の旅</span>
+  <div class="hero-content">
+    <h1>21 Days in <span>Japan</span></h1>
+    <p>Tokyo &middot; Hakone &middot; Kyoto &middot; Osaka &middot; Hiroshima</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>21</strong><span>Days</span></div>
+      <div class="hero-stat"><strong>5</strong><span>Regions</span></div>
+      <div class="hero-stat"><strong>15</strong><span>Cities</span></div>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll to explore</div>
+</section>
+
+<!-- NAV -->
+<nav class="region-nav">
+  <ul>
+    <li><a href="#tokyo">Tokyo</a></li>
+    <li><a href="#hakone">Hakone</a></li>
+    <li><a href="#kyoto">Kyoto</a></li>
+    <li><a href="#osaka">Osaka</a></li>
+    <li><a href="#hiroshima">Hiroshima</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════ TOKYO ═══════════ -->
+<div id="tokyo">
+  <div class="region-header">
+    <h2>Tokyo</h2>
+    <div class="region-jp">東京</div>
+    <div class="region-dates" style="background:var(--section-tokyo)">Days 1 &ndash; 9</div>
+  </div>
+
+  <div class="days-container">
+
+    <!-- Day 1 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day1.jpg" alt="Shimokitazawa vintage streets" loading="lazy">
+        <span class="day-number">Day 1</span>
+      </div>
+      <div class="day-content">
+        <div class="day-location">Shimokitazawa</div>
+        <div class="day-area">Tokyo &mdash; Alt Culture District</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Vintage shopping &amp; thrift stores</li>
+            <li>Indie cafes &amp; live music houses</li>
+            <li>Record stores &amp; indie anime shops</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> No bookings needed. Check live house schedules day-of (tickets available same-day). Bring cash for small shops.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day2.jpg" alt="Shibuya crossing" loading="lazy">
+        <span class="day-number">Day 2</span>
+      </div>
+      <div class="day-content">
+        <div class="day-location">Shibuya</div>
+        <div class="day-area">Tokyo &mdash; Alt Culture Continued</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Shibuya youth culture &amp; street style</li>
+            <li>Live music venues &amp; bars</li>
+            <li>Thrift shops &amp; vinyl hunting</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> Flexible day. Explore evening nightlife around Shibuya's backstreets.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day3.jpg" alt="Nakameguro canal" loading="lazy">
+        <span class="day-number">Day 3</span>
+      </div>
+      <div class="day-content">
+        <div class="day-location">Nakameguro &amp; Daikanyama</div>
+        <div class="day-area">Tokyo &mdash; Chic Riverside</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Meguro River canal walk</li>
+            <li>Boutique shopping &amp; designer cafes</li>
+            <li>T-Site bookstore &amp; galleries</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> Best in afternoon/evening. Reserve ahead for popular cafes on weekends.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 4 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day4.jpg" alt="Odaiba Gundam" loading="lazy">
+        <span class="day-number">Day 4</span>
+      </div>
+      <div class="day-content">
+        <div class="day-location">Odaiba</div>
+        <div class="day-area">Tokyo &mdash; Waterfront</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Joypolis indoor theme park</li>
+            <li>Life-size Gundam Unicorn statue</li>
+            <li>Miraikan science museum &amp; seaside park</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> Buy Joypolis tickets online to skip the line. Gundam has scheduled light shows &mdash; check times in advance.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 5 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day5.jpg" alt="Roppongi skyline" loading="lazy">
+        <span class="day-number">Day 5</span>
+      </div>
+      <div class="day-content">
+        <div class="day-location">Roppongi &amp; Ebisu</div>
+        <div class="day-area">Tokyo &mdash; Skyline &amp; Dining</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Mori Tower observation deck &mdash; panoramic city view</li>
+            <li>Roppongi art museums</li>
+            <li>Ebisu evening dining &amp; drinks</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> Book Mori Tower tickets online. Make dinner reservations &mdash; popular spots fill up fast.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 6 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day6.jpg" alt="Ikebukuro anime" loading="lazy">
+        <span class="day-number">Day 6</span>
+      </div>
+      <div class="day-content">
+        <div class="day-location">Ikebukuro</div>
+        <div class="day-area">Tokyo &mdash; Anime &amp; Pop Culture</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Otome Road &mdash; manga &amp; anime shopping</li>
+            <li>Pokemon Center Mega Tokyo</li>
+            <li>Arcades &amp; game centers</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> No booking needed. Go midday &mdash; Pokemon Center gets crowded in the evenings.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 7 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day7.jpg" alt="Nikko shrines" loading="lazy">
+        <span class="day-number">Day 7</span>
+      </div>
+      <div class="day-content">
+        <span class="badge badge-daytrip">Day Trip</span>
+        <div class="day-location">Nikko</div>
+        <div class="day-area">From Tokyo &mdash; Mountain Shrines</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Toshogu Shrine &amp; ornate carvings</li>
+            <li>Kegon Falls &amp; mountain trails</li>
+            <li>Lake Chuzenji scenic views</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> Leave early (7&ndash;8am). Consider the Nikko Pass for savings. Wear comfortable shoes &mdash; lots of walking.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 8 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day8.jpg" alt="Kawagoe Edo town" loading="lazy">
+        <span class="day-number">Day 8</span>
+      </div>
+      <div class="day-content">
+        <span class="badge badge-daytrip">Day Trip</span>
+        <div class="day-location">Kawagoe</div>
+        <div class="day-area">From Tokyo &mdash; Little Edo</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Edo-period warehouse district stroll</li>
+            <li>Street food &amp; local snacks</li>
+            <li>Candy Alley (Kashiya Yokocho)</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> Go morning &mdash; most shops close early (~5pm). No bookings needed.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 9 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day9.jpg" alt="Yokohama Minato Mirai" loading="lazy">
+        <span class="day-number">Day 9</span>
+      </div>
+      <div class="day-content">
+        <span class="badge badge-daytrip">Day Trip</span>
+        <div class="day-location">Yokohama</div>
+        <div class="day-area">From Tokyo &mdash; Bayside City</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Minato Mirai waterfront skyline</li>
+            <li>Cup Noodles Museum (make your own!)</li>
+            <li>Chinatown &amp; Red Brick Warehouse</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> Reserve Cup Noodles Museum slot in advance. Evening skyline is spectacular.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ HAKONE ═══════════ -->
+<div id="hakone">
+  <div class="region-header">
+    <h2>Hakone</h2>
+    <div class="region-jp">箱根</div>
+    <div class="region-dates" style="background:var(--section-hakone)">Days 10 &ndash; 11</div>
+  </div>
+
+  <div class="days-container">
+
+    <!-- Day 10 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day10.jpg" alt="Hakone ropeway" loading="lazy">
+        <span class="day-number">Day 10</span>
+      </div>
+      <div class="day-content">
+        <span class="badge badge-nature">Nature</span>
+        <div class="day-location">Hakone</div>
+        <div class="day-area">Mountain &amp; Hot Springs</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Hakone Ropeway &amp; volcanic valley</li>
+            <li>Lake Ashi pirate ship cruise</li>
+            <li>Evening onsen (hot spring bath)</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> Book ryokan/onsen early &mdash; critical for availability. Use luggage forwarding to avoid carrying bags. Check weather for Mt. Fuji views.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 11 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day11.jpg" alt="Hakone open air museum" loading="lazy">
+        <span class="day-number">Day 11</span>
+      </div>
+      <div class="day-content">
+        <span class="badge badge-nature">Nature</span>
+        <div class="day-location">Hakone</div>
+        <div class="day-area">Art &amp; Relaxation</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Hakone Open-Air Museum</li>
+            <li>Morning onsen soak</li>
+            <li>Scenic gardens &amp; forest walks</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> Relaxed pace today. Transfer to Kyoto in the afternoon via shinkansen.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ KYOTO ═══════════ -->
+<div id="kyoto">
+  <div class="region-header">
+    <h2>Kyoto</h2>
+    <div class="region-jp">京都</div>
+    <div class="region-dates" style="background:var(--section-kyoto)">Days 12 &ndash; 15</div>
+  </div>
+
+  <div class="days-container">
+
+    <!-- Day 12 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day12.jpg" alt="Kiyomizu-dera" loading="lazy">
+        <span class="day-number">Day 12</span>
+      </div>
+      <div class="day-content">
+        <span class="badge badge-culture">Culture</span>
+        <div class="day-location">Higashiyama</div>
+        <div class="day-area">Kyoto &mdash; Historic East</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Kiyomizu-dera temple &amp; wooden terrace</li>
+            <li>Sannenzaka &amp; Ninenzaka old streets</li>
+            <li>Traditional tea houses &amp; cafes</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> Go early morning to beat the crowds. No booking needed.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 13 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day13.jpg" alt="Philosopher's Path" loading="lazy">
+        <span class="day-number">Day 13</span>
+      </div>
+      <div class="day-content">
+        <span class="badge badge-culture">Culture</span>
+        <div class="day-location">North &amp; East Kyoto</div>
+        <div class="day-area">Kyoto &mdash; Zen &amp; Gardens</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Philosopher's Path canal walk</li>
+            <li>Nanzen-ji temple &amp; aqueduct</li>
+            <li>Ginkaku-ji (Silver Pavilion)</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> No booking needed. Rent a bike for this area &mdash; it's quieter and very pleasant.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 14 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day14.jpg" alt="Fushimi Inari gates" loading="lazy">
+        <span class="day-number">Day 14</span>
+      </div>
+      <div class="day-content">
+        <span class="badge badge-culture">Culture</span>
+        <div class="day-location">Fushimi Inari</div>
+        <div class="day-area">Kyoto &mdash; Iconic Torii Gates</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Thousand torii gate hike (2&ndash;3 hrs)</li>
+            <li>Mountain summit views</li>
+            <li>Fushimi sake brewery district</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> Go at sunrise for the best experience (almost empty). The full hike is 2&ndash;3 hours. No booking needed.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 15 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day15.jpg" alt="Uji matcha town" loading="lazy">
+        <span class="day-number">Day 15</span>
+      </div>
+      <div class="day-content">
+        <span class="badge badge-daytrip">Day Trip</span>
+        <div class="day-location">Uji</div>
+        <div class="day-area">From Kyoto &mdash; Matcha Capital</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Matcha tasting &amp; tea ceremony</li>
+            <li>Byodo-in Phoenix Hall (UNESCO)</li>
+            <li>Nintendo Museum (if open &mdash; check lottery)</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> Byodo-in ticket on arrival. Check Nintendo Museum lottery system in advance if applicable.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ OSAKA ═══════════ -->
+<div id="osaka">
+  <div class="region-header">
+    <h2>Osaka</h2>
+    <div class="region-jp">大阪</div>
+    <div class="region-dates" style="background:var(--section-osaka)">Days 16 &ndash; 19</div>
+  </div>
+
+  <div class="days-container">
+
+    <!-- Day 16 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day16.jpg" alt="Shinsekai retro district" loading="lazy">
+        <span class="day-number">Day 16</span>
+      </div>
+      <div class="day-content">
+        <div class="day-location">Shinsekai &amp; Tennoji</div>
+        <div class="day-area">Osaka &mdash; Retro &amp; Street Food</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Retro neon streets &amp; kushikatsu</li>
+            <li>Tsutenkaku Tower views</li>
+            <li>Tennoji Park &amp; zoo area</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> No booking needed. Tower ticket on-site. Best explored afternoon into evening when the neon lights up.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 17 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day17.jpg" alt="Amerikamura shopping" loading="lazy">
+        <span class="day-number">Day 17</span>
+      </div>
+      <div class="day-content">
+        <div class="day-location">Namba &amp; Amerikamura</div>
+        <div class="day-area">Osaka &mdash; Youth Culture &amp; Shopping</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Amerikamura vintage &amp; streetwear</li>
+            <li>Dotonbori food walk</li>
+            <li>Cafes &amp; people watching</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> No booking needed. Flexible day &mdash; go with the flow.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 18 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day18.jpg" alt="Osaka nightlife" loading="lazy">
+        <span class="day-number">Day 18</span>
+      </div>
+      <div class="day-content">
+        <span class="badge badge-nightlife">Nightlife</span>
+        <div class="day-location">Namba &amp; Shinsaibashi</div>
+        <div class="day-area">Osaka &mdash; After Dark</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Bar hopping &amp; hidden speakeasies</li>
+            <li>Karaoke marathon</li>
+            <li>Late-night street food (yatai stalls)</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> No booking needed. Bring ID (sometimes required). Last trains ~midnight &mdash; plan a taxi if staying out late.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 19 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day19.jpg" alt="Kobe harbor" loading="lazy">
+        <span class="day-number">Day 19</span>
+      </div>
+      <div class="day-content">
+        <span class="badge badge-daytrip">Day Trip</span>
+        <div class="day-location">Kobe</div>
+        <div class="day-area">From Osaka &mdash; Beef &amp; Harbor</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Legendary Kobe beef lunch</li>
+            <li>Kobe Harbor &amp; Meriken Park</li>
+            <li>Nunobiki Herb Garden ropeway &amp; Chinatown</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> Reserve Kobe beef restaurant 2&ndash;7 days ahead &mdash; very important, top spots book out fast.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ HIROSHIMA ═══════════ -->
+<div id="hiroshima">
+  <div class="region-header">
+    <h2>Hiroshima</h2>
+    <div class="region-jp">広島</div>
+    <div class="region-dates" style="background:var(--section-hiroshima)">Days 20 &ndash; 21</div>
+  </div>
+
+  <div class="days-container">
+
+    <!-- Day 20 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day20.jpg" alt="Hiroshima Peace Park" loading="lazy">
+        <span class="day-number">Day 20</span>
+      </div>
+      <div class="day-content">
+        <span class="badge badge-culture">Culture</span>
+        <div class="day-location">Hiroshima City</div>
+        <div class="day-area">Hiroshima &mdash; Peace &amp; Resilience</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Peace Memorial Park &amp; Museum</li>
+            <li>Hiroshima Castle grounds</li>
+            <li>Hiroshima-style okonomiyaki</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> No booking needed. Allow 1&ndash;2 hours for the museum. Popular okonomiyaki spots may have a wait.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 21 -->
+    <div class="day-card">
+      <div class="day-image">
+        <img src="images/day21.jpg" alt="Miyajima floating torii" loading="lazy">
+        <span class="day-number">Day 21</span>
+      </div>
+      <div class="day-content">
+        <span class="badge badge-nature">Nature</span>
+        <div class="day-location">Miyajima Island</div>
+        <div class="day-area">Hiroshima &mdash; Sacred Island</div>
+        <div class="day-section">
+          <div class="day-section-title">Key Activities</div>
+          <ul>
+            <li>Floating torii gate at Itsukushima Shrine</li>
+            <li>Mt. Misen hike or ropeway</li>
+            <li>Island street food &amp; momiji manju</li>
+          </ul>
+        </div>
+        <div class="day-tips">
+          <p><span class="tip-icon">*</span> Check ferry times. Go early to beat crowds. Ropeway has set operating hours &mdash; verify before going.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-jp">良い旅を</div>
+  <p>21 Days Across Japan &mdash; Have an amazing trip!</p>
+</footer>
+
+<script>
+// ── Floating Particles ──
+(function() {
+  const container = document.getElementById('heroParticles');
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 6 + 2;
+    p.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      animation-duration:${Math.random()*12+8}s;
+      animation-delay:${Math.random()*8}s;
+    `;
+    container.appendChild(p);
+  }
+})();
+
+// ── Scroll Progress Bar ──
+window.addEventListener('scroll', function() {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = (scrollTop / docHeight) * 100;
+  document.getElementById('scrollProgress').style.width = progress + '%';
+}, { passive: true });
+
+// ── Scroll Reveal ──
+(function() {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.day-card, .region-header').forEach(function(el) {
+    observer.observe(el);
+  });
+})();
+
+// ── Active Nav Highlight ──
+(function() {
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.region-nav a');
+
+  window.addEventListener('scroll', function() {
+    let current = '';
+    sections.forEach(function(section) {
+      const top = section.offsetTop - 200;
+      if (window.scrollY >= top) {
+        current = section.id;
+      }
+    });
+    navLinks.forEach(function(link) {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  }, { passive: true });
+})();
+
+// ── Parallax on card images ──
+(function() {
+  const images = document.querySelectorAll('.day-image img');
+  window.addEventListener('scroll', function() {
+    images.forEach(function(img) {
+      const rect = img.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        const offset = (rect.top / window.innerHeight - 0.5) * -20;
+        img.style.transform = 'scale(1.08) translateY(' + offset + 'px)';
+      }
+    });
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
