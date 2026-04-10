@@ -126,24 +126,175 @@
     transition: width .1s linear;
   }
 
-  /* ── Floating Particles (Hero) ── */
+  /* ── Sakura Petals (global) ── */
+  .sakura-container {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 150;
+  }
+  .petal {
+    position: absolute;
+    top: -20px;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(ellipse at 30% 30%, #ffb7c5, #f8a4b8 40%, #e8899a 100%);
+    border-radius: 50% 0 50% 50%;
+    opacity: 0;
+    animation: petalFall linear infinite;
+    filter: blur(0.3px);
+    box-shadow: 0 0 3px rgba(255,183,197,.3);
+  }
+  .petal:nth-child(odd) {
+    border-radius: 0 50% 50% 50%;
+    background: radial-gradient(ellipse at 70% 30%, #ffc4d4, #ffaec0 40%, #f095a8 100%);
+  }
+  @keyframes petalFall {
+    0% { transform: translateY(-10vh) rotate(0deg) scale(1); opacity: 0; }
+    5% { opacity: .8; }
+    50% { opacity: .6; }
+    90% { opacity: .3; }
+    100% { transform: translateY(105vh) rotate(720deg) scale(.6); opacity: 0; }
+  }
+  /* Horizontal sway via separate animation on wrapper */
+  .petal-wrap {
+    position: absolute;
+    top: 0;
+    animation: petalSway ease-in-out infinite;
+  }
+  @keyframes petalSway {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(30px); }
+    75% { transform: translateX(-30px); }
+  }
+
+  /* ── Hero Particles (upgraded to lanterns) ── */
   .hero-particles {
     position: absolute;
     inset: 0;
     overflow: hidden;
     pointer-events: none;
   }
-  .particle {
+  .lantern {
     position: absolute;
-    border-radius: 50%;
-    background: rgba(255,255,255,.06);
-    animation: float linear infinite;
+    width: 8px;
+    height: 12px;
+    background: radial-gradient(ellipse, rgba(255,180,50,.6), rgba(255,140,30,.3) 60%, transparent 100%);
+    border-radius: 40% 40% 50% 50%;
+    animation: lanternFloat linear infinite;
+    box-shadow: 0 0 12px rgba(255,160,40,.3), 0 0 24px rgba(255,140,30,.1);
   }
-  @keyframes float {
-    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+  @keyframes lanternFloat {
+    0% { transform: translateY(100vh) scale(.5); opacity: 0; }
+    10% { opacity: .7; }
+    50% { opacity: .5; }
+    90% { opacity: .3; }
+    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+  }
+
+  /* ── Wave Divider (between hero and content) ── */
+  .wave-divider {
+    position: relative;
+    height: 80px;
+    background: var(--paper);
+    overflow: hidden;
+    margin-top: -1px;
+  }
+  .wave-divider svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ── Torii Gate Section Dividers ── */
+  .torii-divider {
+    text-align: center;
+    padding: 2rem 0;
+    opacity: .15;
+  }
+  .torii-divider svg {
+    width: 60px;
+    height: auto;
+  }
+
+  /* ── Seigaiha (wave pattern) backgrounds ── */
+  .region-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 200px;
+    background-image: radial-gradient(circle at 50% 0%, transparent 60%, rgba(0,0,0,.03) 60%, rgba(0,0,0,.03) 62%, transparent 62%);
+    background-size: 20px 20px;
+    border-radius: 50%;
+    opacity: .5;
+    pointer-events: none;
+  }
+  .region-header { position: relative; overflow: hidden; }
+
+  /* ── Ink brush accent on region headers ── */
+  .region-header h2::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    margin: .6rem auto 0;
+    border-radius: 2px;
+  }
+
+  /* ── Stamp / Hanko effect on day numbers ── */
+  .day-number {
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .hanko {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    width: 36px;
+    height: 36px;
+    border: 2px solid rgba(192,57,43,.7);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(192,57,43,.7);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: .7rem;
+    font-weight: 700;
+    transform: rotate(-8deg);
+    opacity: .8;
+    line-height: 1;
+    text-align: center;
+  }
+
+  /* ── Decorative clouds ── */
+  .cloud {
+    position: absolute;
+    background: rgba(255,255,255,.03);
+    border-radius: 50%;
+    filter: blur(40px);
+    pointer-events: none;
+  }
+
+  /* ── Footer upgrade ── */
+  footer {
+    position: relative;
+    overflow: hidden;
+  }
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red), var(--gold), var(--red), transparent);
   }
 
   /* ── Scroll Reveal Animations ── */
@@ -469,6 +620,14 @@
   <div class="scroll-hint">Scroll to explore</div>
 </section>
 
+<!-- Wave Divider -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+    <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,0 L0,0 Z" fill="#1a1a2e"/>
+    <path d="M0,30 C200,60 400,10 720,35 C1040,60 1240,10 1440,30 L1440,0 L0,0 Z" fill="#16213e" opacity=".5"/>
+  </svg>
+</div>
+
 <!-- NAV -->
 <nav class="region-nav">
   <ul>
@@ -703,6 +862,9 @@
   </div>
 </div>
 
+<!-- Torii Divider -->
+<div class="torii-divider"><svg viewBox="0 0 100 70" fill="currentColor"><rect x="10" y="0" width="6" height="70"/><rect x="84" y="0" width="6" height="70"/><rect x="0" y="8" width="100" height="6" rx="2"/><rect x="5" y="20" width="90" height="4" rx="1"/><rect x="44" y="24" width="12" height="46"/></svg></div>
+
 <!-- ═══════════ HAKONE ═══════════ -->
 <div id="hakone">
   <div class="region-header">
@@ -763,6 +925,9 @@
 
   </div>
 </div>
+
+<!-- Torii Divider -->
+<div class="torii-divider"><svg viewBox="0 0 100 70" fill="currentColor"><rect x="10" y="0" width="6" height="70"/><rect x="84" y="0" width="6" height="70"/><rect x="0" y="8" width="100" height="6" rx="2"/><rect x="5" y="20" width="90" height="4" rx="1"/><rect x="44" y="24" width="12" height="46"/></svg></div>
 
 <!-- ═══════════ KYOTO ═══════════ -->
 <div id="kyoto">
@@ -873,6 +1038,9 @@
   </div>
 </div>
 
+<!-- Torii Divider -->
+<div class="torii-divider"><svg viewBox="0 0 100 70" fill="currentColor"><rect x="10" y="0" width="6" height="70"/><rect x="84" y="0" width="6" height="70"/><rect x="0" y="8" width="100" height="6" rx="2"/><rect x="5" y="20" width="90" height="4" rx="1"/><rect x="44" y="24" width="12" height="46"/></svg></div>
+
 <!-- ═══════════ OSAKA ═══════════ -->
 <div id="osaka">
   <div class="region-header">
@@ -980,6 +1148,9 @@
   </div>
 </div>
 
+<!-- Torii Divider -->
+<div class="torii-divider"><svg viewBox="0 0 100 70" fill="currentColor"><rect x="10" y="0" width="6" height="70"/><rect x="84" y="0" width="6" height="70"/><rect x="0" y="8" width="100" height="6" rx="2"/><rect x="5" y="20" width="90" height="4" rx="1"/><rect x="44" y="24" width="12" height="46"/></svg></div>
+
 <!-- ═══════════ HIROSHIMA ═══════════ -->
 <div id="hiroshima">
   <div class="region-header">
@@ -1045,7 +1216,11 @@
 <footer>
   <div class="footer-jp">良い旅を</div>
   <p>21 Days Across Japan &mdash; Have an amazing trip!</p>
+  <p style="margin-top:.5rem;font-size:.7rem;opacity:.4">Yoi tabi wo &mdash; Have a good journey</p>
 </footer>
+
+<!-- Sakura Petals (global overlay) -->
+<div class="sakura-container" id="sakuraContainer"></div>
 
 <script>
 // ── Countdown to Nov 7, 2026 ──
@@ -1074,21 +1249,54 @@
   setInterval(update, 1000);
 })();
 
-// ── Floating Particles ──
+// ── Floating Lanterns (Hero) ──
 (function() {
-  const container = document.getElementById('heroParticles');
-  for (let i = 0; i < 20; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const size = Math.random() * 6 + 2;
-    p.style.cssText = `
-      width:${size}px; height:${size}px;
-      left:${Math.random()*100}%;
-      animation-duration:${Math.random()*12+8}s;
-      animation-delay:${Math.random()*8}s;
-    `;
-    container.appendChild(p);
+  var container = document.getElementById('heroParticles');
+  for (var i = 0; i < 15; i++) {
+    var l = document.createElement('div');
+    l.className = 'lantern';
+    var size = Math.random() * 8 + 6;
+    l.style.cssText =
+      'width:' + size + 'px;height:' + (size*1.5) + 'px;' +
+      'left:' + (Math.random()*100) + '%;' +
+      'animation-duration:' + (Math.random()*15+10) + 's;' +
+      'animation-delay:' + (Math.random()*10) + 's;';
+    container.appendChild(l);
   }
+})();
+
+// ── Sakura Petals ──
+(function() {
+  var container = document.getElementById('sakuraContainer');
+  for (var i = 0; i < 25; i++) {
+    var wrap = document.createElement('div');
+    wrap.className = 'petal-wrap';
+    wrap.style.left = (Math.random() * 100) + '%';
+    wrap.style.animationDuration = (Math.random() * 4 + 3) + 's';
+    wrap.style.animationDelay = (Math.random() * 5) + 's';
+    var p = document.createElement('div');
+    p.className = 'petal';
+    var size = Math.random() * 8 + 8;
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.animationDuration = (Math.random() * 8 + 7) + 's';
+    p.style.animationDelay = (Math.random() * 12) + 's';
+    wrap.appendChild(p);
+    container.appendChild(wrap);
+  }
+})();
+
+// ── Hanko stamps on day images ──
+(function() {
+  var kanji = ['一','二','三','四','五','六','七','八','九','十',
+               '十一','十二','十三','十四','十五','十六','十七','十八','十九','二十','廿一'];
+  document.querySelectorAll('.day-image').forEach(function(el, i) {
+    var hanko = document.createElement('div');
+    hanko.className = 'hanko';
+    hanko.textContent = kanji[i] || '';
+    hanko.style.transform = 'rotate(' + (Math.random()*16-8) + 'deg)';
+    el.appendChild(hanko);
+  });
 })();
 
 // ── Scroll Progress Bar ──
